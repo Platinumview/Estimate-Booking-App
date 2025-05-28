@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Platinum View Window Cleaning</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #add8e6, #87ceeb);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .logo {
+      max-width: 400px;
+      height: auto;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .button {
+      background-color: white;
+      color: LightBlue;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .button:hover {
+      background-color: #e0f0ff;
+      transform: scale(1.03);
+    }
+
+    footer {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    @media (max-width: 500px) {
+      .logo {
+        max-width: 90%;
+      }
+
+      .button {
+        font-size: 1rem;
+        padding: 0.8rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-content">
+    <img src="https://cdn.glitch.global/e36b3ab8-cc07-4521-84d8-f133dd9e4ba2/Platinum%20View-01%20(1).png?v=1746494415627" alt="Platinum View Window Cleaning Logo" class="logo" />
+
+    <div class="button-container">
+      <a href="estimate.html" class="button">Get a Free Estimate</a>
+      <a href="estimate.html" class="button">Book Now</a>
+    </div>
+  </div>
+
+  <footer>
+    Contact us: <a href="tel:8176747087">(817) 674-7087</a> | 
+    <a href="mailto:platinumviewwindow@gmail.com">platinumviewwindow@gmail.com</a>
+  </footer>
+</body>
+</html>
