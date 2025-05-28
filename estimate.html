@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estimate | Platinum View</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #add8e6, #87ceeb);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1.5s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .navigation {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .navigation a {
+      display: inline-block;
+      background-color: white;
+      color: LightBlue;
+      padding: 0.8rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: background-color 0.3s;
+    }
+
+    .navigation a:hover {
+      background-color: lightgreen;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    form {
+      background-color: white;
+      color: LightBlue;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #1e90ff;
+      box-shadow: 0 0 6px rgba(30, 144, 255, 0.4);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      margin-top: 1.2rem;
+      padding: 0.8rem 1.5rem;
+      background-color: LightBlue;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: lightgreen;
+      transform: scale(1.03);
+    }
+
+    #totalDisplay {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #333;
+    }
+
+    footer {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.95rem;
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container fade-in">
+    <div class="navigation">
+      <a href="index.html">Home</a>
+    </div>
+
+    <h1>Free Estimate Form</h1>
+
+    <form onsubmit="redirectToBooking(event)">
+      <label for="windows">How many first floor windows?</label>
+      <input type="number" id="windows" name="first_floor_windows" min="0">
+
+      <label for="second_floor_count">How many second floor windows?</label>
+      <input type="number" id="second_floor_count" name="second_floor_windows" min="0">
+
+      <label>Are there any screens you want cleaned?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="has_screens" value="yes" onclick="document.getElementById('screen_count').style.display='block'"> Yes</label>
+        <label><input type="radio" name="has_screens" value="no" onclick="document.getElementById('screen_count').style.display='none'"> No</label>
+      </div>
+
+      <div id="screen_count" style="display:none;">
+        <label for="screens">How many screens?</label>
+        <input type="number" id="screens" name="screens" min="0">
+      </div>
+
+      <label>Any window seals you want cleaned?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="has_seals" value="yes" onclick="document.getElementById('seal_count').style.display='block'"> Yes</label>
+        <label><input type="radio" name="has_seals" value="no" onclick="document.getElementById('seal_count').style.display='none'"> No</label>
+      </div>
+
+      <div id="seal_count" style="display:none;">
+        <label for="seals">How many seals?</label>
+        <input type="number" id="seals" name="window_seals" min="0">
+      </div>
+
+      <button type="button" onclick="calculateTotal()">Calculate Total</button>
+      <p id="totalDisplay"></p>
+
+      <button type="submit">Book Now</button>
+    </form>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const firstFloor = parseInt(document.getElementById("windows").value) || 0;
+      const secondFloor = parseInt(document.getElementById("second_floor_count").value) || 0;
+      const screensEnabled = document.querySelector('input[name="has_screens"]:checked')?.value === "yes";
+      const screens = screensEnabled ? (parseInt(document.getElementById("screens").value) || 0) : 0;
+      const sealsEnabled = document.querySelector('input[name="has_seals"]:checked')?.value === "yes";
+      const seals = sealsEnabled ? (parseInt(document.getElementById("seals").value) || 0) : 0;
+
+      let total = 0;
+      total += firstFloor * 8;
+      total += secondFloor * 10;
+      total += screens * 2;
+      total += seals * 2;
+
+      document.getElementById("totalDisplay").textContent = `Estimated Total: $${total}`;
+    }
+
+    function redirectToBooking(e) {
+      e.preventDefault();
+      const params = new URLSearchParams();
+      params.set("first_floor", document.getElementById("windows").value || 0);
+      params.set("second_floor", document.getElementById("second_floor_count").value || 0);
+      const hasScreens = document.querySelector('input[name="has_screens"]:checked')?.value === "yes";
+      const screens = hasScreens ? (document.getElementById("screens").value || 0) : 0;
+      params.set("screens", screens);
+      const hasSeals = document.querySelector('input[name="has_seals"]:checked')?.value === "yes";
+      const seals = hasSeals ? (document.getElementById("seals").value || 0) : 0;
+      params.set("seals", seals);
+      const total = document.getElementById("totalDisplay").textContent.replace("Estimated Total: $", "") || 0;
+      params.set("total", total);
+
+      window.location.href = `booking.html?${params.toString()}`;
+    }
+  </script>
+
+  <footer>
+    Contact us: <a href="tel:8176747087">(817) 674-7087</a> |
+    <a href="mailto:platinumviewwindow@gmail.com">platinumviewwindow@gmail.com</a>
+  </footer>
+</body>
+</html>
