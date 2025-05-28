@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Appointment | Platinum View</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to bottom right, #add8e6, #87ceeb);
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1.5s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .navigation {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .navigation a {
+      display: inline-block;
+      background-color: white;
+      color: LightBlue;
+      padding: 0.8rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: background-color 0.3s;
+    }
+
+    .navigation a:hover {
+      background-color: lightgreen;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      background-color: white;
+      color: LightBlue;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #1e90ff;
+      box-shadow: 0 0 6px rgba(30, 144, 255, 0.4);
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.5rem;
+      background-color: LightBlue;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: lightgreen;
+      transform: scale(1.03);
+    }
+
+    .disclaimer {
+      font-size: 0.9rem;
+      color: gray;
+      margin-top: 0.3rem;
+    }
+
+    footer {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.95rem;
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container fade-in">
+    <div class="navigation">
+      <a href="index.html">Home</a>
+    </div>
+
+    <h1>Book Your Appointment</h1>
+
+    <form action="https://formspree.io/f/mjkwwaqn" method="POST">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="city">City</label>
+      <input type="text" id="city" name="city" required>
+
+      <label for="recurring">Would you like to set up recurring service?</label>
+      <select id="recurring" name="recurringService">
+        <option value="One-time cleaning">One-time cleaning</option>
+        <option value="Bi-weekly (10% discount)">Bi-weekly (15% discount)</option>
+        <option value="Monthly (5% discount)">Monthly (10% discount)</option>
+        <option value="Quarterly">Quarterly</option>
+        <option value="Yearly">Yearly</option>
+      </select>
+      <p class="disclaimer">Note: The first cleaning will be billed at full price. Discounts apply to recurring visits starting with the second appointment.</p>
+
+      <!-- Hidden fields to carry over estimate info -->
+      <input type="hidden" id="first_floor" name="first_floor_windows">
+      <input type="hidden" id="second_floor" name="second_floor_windows">
+      <input type="hidden" id="screens" name="screens">
+      <input type="hidden" id="seals" name="window_seals">
+      <input type="hidden" id="total_price" name="estimated_total">
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("first_floor").value = params.get("first_floor") || "";
+    document.getElementById("second_floor").value = params.get("second_floor") || "";
+    document.getElementById("screens").value = params.get("screens") || "";
+    document.getElementById("seals").value = params.get("seals") || "";
+    document.getElementById("total_price").value = params.get("total") || "";
+  </script>
+
+  <footer>
+    Contact us: <a href="tel:8176747087">(817) 674-7087</a> |
+    <a href="mailto:platinumviewwindow@gmail.com">platinumviewwindow@gmail.com</a>
+  </footer>
+</body>
+</html>
